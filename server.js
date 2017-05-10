@@ -3,11 +3,11 @@ var express = require("express");
 var methodOverride = require("method-override");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
+var db = require("./models");
 
 //Initialize & store new Express app
+var port = process.env.NODE_ENV || 3000;
 var app = express();
-var port = process.env.PORT || 3000;
-
 
 //Configure body-parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,7 +29,9 @@ app.use(express.static(process.cwd() + '/public'));
 //Route controllers
 require("./controllers/burgers_controller")(app);
 
-//Set express port & start listening
-app.listen(port, function() {
-    console.log("App listening on PORT " + port);
+//Start listening
+db.sequelize.sync().then(function() {
+    app.listen(PORT, function() {
+        console.log("Listening on port %s", PORT);
+    });
 });

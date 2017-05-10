@@ -1,4 +1,11 @@
-var orm = require("../config/orm");
+module.exports = function(sequelize, DataTypes) {
+    var burger = sequelize.define("Burger", {
+        burger_name: DataTypes.STRING,
+        devoured: DataTypes.BOOLEAN(false)
+
+    });
+    return burger;
+}
 
 var burger = {
     table: "burgers",
