@@ -1,0 +1,59 @@
+<header>
+<h1><center>Eat-Da-Burger!</center></h1>
+<br>
+<br>
+<center><img src="/assets/img/burger1.png" class="burger-cartoon" alt="Burgers"></center>
+<br>
+<br>
+  <center><p>Photo by: <a href="http://orig09.deviantart.net/4ed8/f/2013/233/2/0/kawaii_burger_by_amis0129-d6j5bq1.png">Amis0129</a></p></center>
+</header>
+<br>
+<br>
+<main>
+
+    {{!--Div for uneaten burgers --}}
+  <div class="row">
+    <div class="col-xs-4">
+    {{#each burgers}}
+    {{#unless this.devoured}}
+      <div class="devour-it">
+        {{this.id}}.{{this.burger_name}}
+      </div>
+      <div class="devour-btn-form">
+        <form action="/{{this.id}}?_method=PUT" method="POST">
+          <button type="devour" class="devour-it-btn">Devour It!</button>
+        </form>
+      </div>
+      {{/unless}}
+      {{/each}}
+    </div>
+
+<div class="col-xs-4">
+      <center><form method="POST" action="/" class="adding-burger">
+        <input type="text" name="burger"></center><br>
+        <center><button type="submit">Submit</button></center><br>
+        <center><p>Enter a burger you want to eat.</p><p>Click the "Submit" button.</p>
+      </center></form>
+    </div>
+
+    {{!--Div for burgers devoured --}}
+
+    <div class="col-xs-4">
+      {{#each burgers}}
+      {{#if this.devoured}}
+      <div class="devoured">
+        {{this.id}}.{{this.burger_name}}
+        <div class="devour-btn-form">
+          <form action="/{{this.id}}?_method=PUT" method="POST">
+            <input type="hidden" name="devoured" value="true"> 
+          </form>
+        </div>
+      </div>
+      {{/if}}
+      {{/each}}
+      
+    </div>
+    
+    
+  </div>
+</main>
